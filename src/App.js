@@ -1,44 +1,45 @@
-    
-import React, { Component } from 'react';
+import React from 'react';
 import List from './List'
 import './App.css';
-import STORE from './STORE';
 
-function buildCardsArray(cardIds, allCards) {
-  return cardIds.map(key => {
-    return allCards[key];
-  });
-};
 
-class App extends Component {
-  static defaultProps = {
-    store:[]
-    
+
+function App(props) {
+
+  const buildAllCardIDs = (cardIds, allCards) => {
+    return cardIds.map(id => {
+      return allCards[id];
+      
+    });
   };
-  
-  render() {
-    console.log(store);
 
-    const listArr = this.props.store.lists.map(listArray => {
-      list.cards = buildCardsArray(list.cardIds, this.props.store.allCards)
-      return listArray;
-    })
+  const cardComponent = props.store.lists.map(components => {
+    components.allCardsList = buildAllCardIDs(components.cardIds, props.store.allCards)
+    console.log(components);
+    return components;
+  })
   
-    const renderCards = listArr.map(list => {
-      return <List header={list.header} cards={list.cards} key={list.id}/>
-    })
-  
+  console.log(cardComponent);
+
+  const renderCards = cardComponent.map(lists => {
+    return <List 
+      key={lists.id} 
+      header={lists.header} 
+      cards={lists.allCardsList}
+      />
+  })
+    
     return (
       <main className='App'>
         <header className='App-header'>
           <h1>Trelloyes!</h1>
         </header>
         <div className='App-list'>
-          {renderCards};
+         {renderCards}
         </div>
       </main>
     );
   }
-}
+
 
 export default App;

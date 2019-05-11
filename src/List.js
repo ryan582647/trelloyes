@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Card from './Card'
 import './List.css';
 
-class List extends React.Component {
+class List extends Component {
    renderCardContent() {
+       console.log(this.props);
         return this.props.cards.map((card, index) => {
           return <Card 
           key={index}
